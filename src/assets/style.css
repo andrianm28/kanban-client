@@ -122,3 +122,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+/* Board Styling */
+
+/* Category Styling */
+
+/* Task Styling */
+
+.hover-enable:hover {
+  opacity: 0.4;
+  background-color: ghostwhite;
+}

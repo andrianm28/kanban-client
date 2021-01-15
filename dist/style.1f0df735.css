@@ -123,4 +123,16 @@ body {
   align-items: center;
 }
 
+/* Board Styling */
+
+/* Category Styling */
+
+/* Task Styling */
+
+.hover-enable:hover {
+  opacity: 0.4;
+  background-color: ghostwhite;
+}
+
+
 /*# sourceMappingURL=/style.1f0df735.css.map */

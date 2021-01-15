@@ -11,24 +11,22 @@
             <form class="form-signin" @submit.prevent="login">
 
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="user.email" required>
                 <label for="inputEmail">Email</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
                 <label for="inputPassword">Password</label>
               </div>
 
               <div class="btnGroup">
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
-                <!-- <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fa fa-google" style="font-size:14px"></i> Sign In</button> -->
-                <div class="g-signin2" data-onsuccess="onSignIn" @click.prevent="onSignIn"></div>
+                <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
               </div>
               <hr class="my-4">
               <a class="d-block text-center mt-2 small" href="#" @click.prevent="registerForm">Register</a>
             </form>
-            <a href="#" @click.prevent="signOut">Sign out</a>
           </div>
         </div>
       </div>
@@ -37,14 +35,29 @@
 </template>
 
 <script>
-import axios from "axios"
+import GoogleLogin from 'vue-google-login';
 
 export default {
   name: "LoginForm",
   data(){
     return {
-
+      user: {
+        email: "",
+        password: ""
+      },
+      params: {
+        client_id: "530571905826-okahmlm2ebe4df6kh0subvq34pfm1qcb"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+          width: 250,
+          height: 50,
+          longtitle: true
+      }
     }
+  },
+  components: {
+    GoogleLogin
   },
   mounted() {
     window.gapi.load('auth2', () =>  {
@@ -55,26 +68,17 @@ export default {
   },
   methods: {
     login() {
-      axios({
-        method: `POST`,
-
-      })
+      console.log(this.user);
+      this.$emit("login", this.user)
     },
     registerForm(){
       this.$emit("changePage", "register")
     },
-    onSignIn(googleUser) {
-      const profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    onSuccess(googleUser) {
+      this.$emit('googleLogin', googleUser)
     },
-    signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
+    onFailure(googleUser) {
+      // this.$emit('googleLogin', googleUser)
     }
   }
 }

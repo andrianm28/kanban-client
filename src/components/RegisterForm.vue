@@ -11,12 +11,12 @@
             <form class="form-signin" @submit.prevent="register">
 
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="email" required>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="user.email" required>
                 <label for="inputEmail">Email</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="password" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
                 <label for="inputPassword">Password</label>
               </div>
 
@@ -38,34 +38,18 @@ export default {
   name: "RegisterForm",
   data (){
     return {
-      email: '',
-      password: ''
+      user: {
+        email: "",
+        password: ""
+      }
     }
   },
   methods: {
     loginForm() {
       this.$emit("changePage", "login")
     },
-    register() {  
-      const email = this.email
-      const password = this.password
-      console.log(email, password);
-      axios({
-        method: 'post',
-        url: 'http://localhost:3000/api/users/register/',
-        data: {
-          email: email,
-          password: password
-        }
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response.data);
-        }
-      })
+    register() {
+      this.$emit("register", this.user)
     }
   }
 }
