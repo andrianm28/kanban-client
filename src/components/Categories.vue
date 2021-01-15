@@ -4,16 +4,20 @@
       <category   
       :category="category"
       :tasks="tasks"
+      :categories="categories"
       @addTask="addTask"
       @deleteTask="deleteTask"
+      @editTask="editTask"
+      @editCategory="editCategory"
+      @deleteCategory="deleteCategory"
       ></category>
     </div>
     <div class="col">
       <div class="card card-category" v-if="addCategoryBtn == 'on'">
         <div class="card-header">
-          <form @submit.prevent="addCategory">
-            <input type="textarea" class="form-control" id="name" placeholder="Add Category" v-model="categoryName">
-            <a href="" @click.prevent="changeAddBtn('off')">X</a>
+          <form @submit.prevent="addCategory(categoryName)">
+            <input type="textarea" class="form-control" id="name" placeholder="Add Category" v-model="categoryName"><br>
+            <a href="" @click.prevent="changeAddBtn('off')">close</a>
           </form>
         </div>
       </div>
@@ -37,8 +41,7 @@ export default {
     return {
       addCategoryBtn: "off",
       addTaskBtn: 'off',
-      categoryName: '',
-      taskTitle: '',
+      categoryName: ''
     }
   },
   computed: {
@@ -53,18 +56,26 @@ export default {
     changeAddTaskBtn(status){
       this.addTaskBtn = status
     },
-    addCategory(){
-      this.categories.push({
-        id: 6,
-        name: this.categoryName
-      })
+    addCategory(category){
+      this.$emit('addCategory', category)
+      this.categoryName = ''
+      this.changeAddBtn('off')
     },
     addTask(task){
       this.$emit('addTask', task)
     },
     deleteTask(id){
       this.$emit('deleteTask', id)
-    }
+    },
+    editTask(task){
+      this.$emit('editTask', task)
+    },
+    editCategory(category){
+      this.$emit("editCategory", category)
+    },
+    deleteCategory(id){
+      this.$emit('deleteCategory', id)
+    },
   }
 }
 </script>

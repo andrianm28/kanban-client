@@ -6,6 +6,10 @@
     :tasks="tasks"
     @addTask="addTask"
     @deleteTask="deleteTask"
+    @editTask="editTask"
+    @addCategory="addCategory"
+    @editCategory="editCategory"
+    @deleteCategory="deleteCategory"
     ></board>
   </div>
 </template>
@@ -31,7 +35,19 @@ export default {
     },
     deleteTask(id){
       this.$emit('deleteTask', id)
-    }
+    },
+    editTask(task){
+      this.$emit('editTask', task)
+    },
+    addCategory(category){
+      this.$emit('addCategory', category)
+    },
+    editCategory(category){
+      this.$emit("editCategory", category)
+    },
+    deleteCategory(id){
+      this.$emit('deleteCategory', id)
+    },
   }
 }
 </script>
