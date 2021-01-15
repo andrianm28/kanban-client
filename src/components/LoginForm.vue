@@ -46,7 +46,7 @@ export default {
         password: ""
       },
       params: {
-        client_id: "530571905826-okahmlm2ebe4df6kh0subvq34pfm1qcb"
+        client_id: "530571905826-okahmlm2ebe4df6kh0subvq34pfm1qcb.apps.googleusercontent.com"
       },
       // only needed if you want to render the button with the google ui
       renderParams: {
