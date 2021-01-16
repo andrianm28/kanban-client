@@ -5,11 +5,13 @@
         <h6 >
           {{task.title}}
         </h6>
-        <small class="text-small">by: {{task.User.email}} {{ task.createdAt | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</small>
+        <small class="text-small">by: {{task.User.email}}</small><br>
+        <small class="text-small">{{ task.createdAt | moment("from", "now", true) }} ago</small><br>
       </div>
       <form v-if="editBtn =='on'" @submit.prevent="editTask(task)">
         <input type="text" v-model="task.title"><br>
-        <small class="text-small">by: {{task.User.email}} {{ task.createdAt | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</small>
+        <small class="text-small">by: {{task.User.email}}</small><br>
+        <small class="text-small">{{ task.createdAt | moment("from", "now", true) }} ago</small><br>
         <a href="" @click.prevent="prev">❮</a>
         <a href="" @click.prevent="changeEditBtn('off')">close</a>
         <a href="" @click.prevent="deleteTask(task.id)">delete</a>
