@@ -11,7 +11,9 @@
     @changePage="changePage"
     @register="register"
     ></register-form>
-    <home v-if="currentPage == 'home'"
+    <home 
+    class="text-center"
+    v-if="currentPage == 'home'"
     @changePage="changePage"
     :categories="categories"
     :tasks="tasks"
@@ -32,6 +34,7 @@ import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 
 const base_url = 'https://h8anban.herokuapp.com'
+// const base_url = 'http://localhost:3000'
 
 export default {
   name: "App",

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <navbar @changePage="changePage"></navbar>
     <board
     :categories="categories"
